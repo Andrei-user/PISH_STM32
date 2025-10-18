@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "pish_f411_sfr.h"
 #include "pish_gpio_dr.h"
+#include "pish_rcc_drv.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -62,45 +63,25 @@
 int main(void)
 {
 
-  /* USER CODE BEGIN 1 */
-
-  /* USER CODE END 1 */
-
-  /* MCU Configuration--------------------------------------------------------*/
-
-  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-
-  /* USER CODE BEGIN Init */
-
-  /* USER CODE END Init */
-
-  /* Configure the system clock */
-
-  /* USER CODE BEGIN SysInit */
-
-  /* USER CODE END SysInit */
-
-  /* Initialize all configured peripherals */
-
-  /* USER CODE BEGIN 2 */
-PISH_GPIO_Init();
+	PISH_GPIO_Init();
+	PISH_RCC_Int();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-	  if (PISH_GPIO_Read(GPIOC, 13))
-	  {
-		  PISH_GPIO_Toggle(GPIOA, 5);
-		  for(volatile uint32_t i = 0; i < 1000000; i++){
+	while (1)
+	{
+		if (PISH_GPIO_Read(GPIOC, 13))
+		{
+			//PISH_GPIO_Toggle(GPIOA, 5);
+			for(volatile uint32_t i = 0; i < 1000000; i++){
 
-		  }
-	  }
+			}
+		}
 
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-  }
+	}
   /* USER CODE END 3 */
 }

@@ -8,6 +8,6 @@
 #ifndef INC_PISH_RCC_DRV_H_
 #define INC_PISH_RCC_DRV_H_
 
-
+void PISH_RCC_Int();
 
 #endif /* INC_PISH_RCC_DRV_H_ */

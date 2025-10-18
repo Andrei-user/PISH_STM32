@@ -16,7 +16,7 @@
   ******************************************************************************
   */
 /* USER CODE END Header */
-
+#include "pish_gpio_dr.h"
 /* Includes ------------------------------------------------------------------*/
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -181,7 +181,7 @@ void PendSV_Handler(void)
 void SysTick_Handler(void)
 {
   /* USER CODE BEGIN SysTick_IRQn 0 */
-
+	PISH_GPIO_Toggle(GPIOA, 5);
   /* USER CODE END SysTick_IRQn 0 */
   //HAL_IncTick();
   /* USER CODE BEGIN SysTick_IRQn 1 */

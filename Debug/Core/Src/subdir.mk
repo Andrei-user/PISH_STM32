@@ -7,16 +7,19 @@
 C_SRCS += \
 ../Core/Src/main.c \
 ../Core/Src/pish_gpio_dr.c \
+../Core/Src/pish_rcc_drv.c \
 ../Core/Src/stm32f4xx_it.c 
 
 OBJS += \
 ./Core/Src/main.o \
 ./Core/Src/pish_gpio_dr.o \
+./Core/Src/pish_rcc_drv.o \
 ./Core/Src/stm32f4xx_it.o 
 
 C_DEPS += \
 ./Core/Src/main.d \
 ./Core/Src/pish_gpio_dr.d \
+./Core/Src/pish_rcc_drv.d \
 ./Core/Src/stm32f4xx_it.d 
 
 
@@ -27,7 +30,7 @@ Core/Src/%.o Core/Src/%.su Core/Src/%.cyclo: ../Core/Src/%.c Core/Src/subdir.mk
 clean: clean-Core-2f-Src
 
 clean-Core-2f-Src:
-	-$(RM) ./Core/Src/main.cyclo ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/main.su ./Core/Src/pish_gpio_dr.cyclo ./Core/Src/pish_gpio_dr.d ./Core/Src/pish_gpio_dr.o ./Core/Src/pish_gpio_dr.su ./Core/Src/stm32f4xx_it.cyclo ./Core/Src/stm32f4xx_it.d ./Core/Src/stm32f4xx_it.o ./Core/Src/stm32f4xx_it.su
+	-$(RM) ./Core/Src/main.cyclo ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/main.su ./Core/Src/pish_gpio_dr.cyclo ./Core/Src/pish_gpio_dr.d ./Core/Src/pish_gpio_dr.o ./Core/Src/pish_gpio_dr.su ./Core/Src/pish_rcc_drv.cyclo ./Core/Src/pish_rcc_drv.d ./Core/Src/pish_rcc_drv.o ./Core/Src/pish_rcc_drv.su ./Core/Src/stm32f4xx_it.cyclo ./Core/Src/stm32f4xx_it.d ./Core/Src/stm32f4xx_it.o ./Core/Src/stm32f4xx_it.su
 
 .PHONY: clean-Core-2f-Src
 

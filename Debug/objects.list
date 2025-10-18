@@ -1,4 +1,5 @@
 "./Core/Src/main.o"
 "./Core/Src/pish_gpio_dr.o"
+"./Core/Src/pish_rcc_drv.o"
 "./Core/Src/stm32f4xx_it.o"
 "./Core/Startup/startup_stm32f411retx.o"
