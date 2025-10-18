@@ -64,6 +64,8 @@
 /**
   * @brief This function handles Non maskable interrupt.
   */
+volatile uint32_t ticks = 0;
+
 void NMI_Handler(void)
 {
   /* USER CODE BEGIN NonMaskableInt_IRQn 0 */
@@ -180,13 +182,11 @@ void PendSV_Handler(void)
   */
 void SysTick_Handler(void)
 {
-  /* USER CODE BEGIN SysTick_IRQn 0 */
-	PISH_GPIO_Toggle(GPIOA, 5);
-  /* USER CODE END SysTick_IRQn 0 */
-  //HAL_IncTick();
-  /* USER CODE BEGIN SysTick_IRQn 1 */
+	ticks++;
+}
 
-  /* USER CODE END SysTick_IRQn 1 */
+uint32_t get_Ticks(){
+	return ticks;
 }
 
 /******************************************************************************/

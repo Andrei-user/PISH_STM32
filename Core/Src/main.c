@@ -73,15 +73,18 @@ int main(void)
 	{
 		if (PISH_GPIO_Read(GPIOC, 13))
 		{
-			//PISH_GPIO_Toggle(GPIOA, 5);
-			for(volatile uint32_t i = 0; i < 1000000; i++){
-
-			}
+			PISH_GPIO_Toggle(GPIOA, 5);
+			delay(500);
 		}
 
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
 	}
+
   /* USER CODE END 3 */
+}
+void delay(uint32_t ms){
+	uint32_t currTicks = get_Ticks();
+	while (get_Ticks() - currTicks < ms);
 }
