@@ -18,9 +18,9 @@ void PISH_RCC_Int(){
 		counter++;
 	}
 
-	RCC->PLLCFGR.R &= (0x3F); // SET M DIVIDDER
+	RCC->PLLCFGR.R &= ~(0x3F); // SET M DIVIDDER
 	RCC->PLLCFGR.R |= (4<<0); // SET M DIVIDDER
-	RCC->PLLCFGR.R &= (0x1FF<<OFF_SET); // SET N MULTIOPLAY
+	RCC->PLLCFGR.R &= ~(0x1FF<<OFF_SET); // SET N MULTIOPLAY
 	RCC->PLLCFGR.R |= (100<<OFF_SET); // SET N MULTIOPLAY
 	RCC->PLLCFGR.R &= ~(3<<16); // SET P DRIVER
 	RCC->PLLCFGR.B.PLLSRC = PPL_SRC_HSE; // SET hse
@@ -30,8 +30,9 @@ void PISH_RCC_Int(){
 	while(RCC->CR.B.PLLON == OFF){
 		counter++;
 	}
-	RCC->CFGR.B.SW0 = 0;
-	RCC->CFGR.B.SW1 = 1;
+
+	FLASH->ACR.B.LATENCY = 3;
+
 
 	RCC->CFGR.R |= 2;
 

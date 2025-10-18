@@ -37,15 +37,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_macro  0000110d  00000000  00000000  00036a94  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   000013da  00000000  00000000  00037ba1  2**0
+ 17 .debug_line   000013d4  00000000  00000000  00037ba1  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00009f52  00000000  00000000  00038f7b  2**0
+ 18 .debug_str    00009f52  00000000  00000000  00038f75  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000043  00000000  00000000  00042ecd  2**0
+ 19 .comment      00000043  00000000  00000000  00042ec7  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00000280  00000000  00000000  00042f10  2**2
+ 20 .debug_frame  00000280  00000000  00000000  00042f0c  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 00000064  00000000  00000000  00043190  2**0
+ 21 .debug_line_str 00000064  00000000  00000000  0004318c  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -304,7 +304,7 @@ void PISH_RCC_Int(){
  8000326:	b083      	sub	sp, #12
  8000328:	af00      	add	r7, sp, #0
 	RCC->CR.B.HSEON = ON;
- 800032a:	4a39      	ldr	r2, [pc, #228]	@ (8000410 <PISH_RCC_Int+0xec>)
+ 800032a:	4a38      	ldr	r2, [pc, #224]	@ (800040c <PISH_RCC_Int+0xe8>)
  800032c:	6813      	ldr	r3, [r2, #0]
  800032e:	f443 3380 	orr.w	r3, r3, #65536	@ 0x10000
  8000332:	6013      	str	r3, [r2, #0]
@@ -319,7 +319,7 @@ void PISH_RCC_Int(){
  800033c:	3301      	adds	r3, #1
  800033e:	607b      	str	r3, [r7, #4]
 	while(RCC->CR.B.HSERDY == OFF){
- 8000340:	4b33      	ldr	r3, [pc, #204]	@ (8000410 <PISH_RCC_Int+0xec>)
+ 8000340:	4b32      	ldr	r3, [pc, #200]	@ (800040c <PISH_RCC_Int+0xe8>)
  8000342:	681b      	ldr	r3, [r3, #0]
  8000344:	f3c3 4340 	ubfx	r3, r3, #17, #1
  8000348:	b2db      	uxtb	r3, r3
@@ -327,114 +327,114 @@ void PISH_RCC_Int(){
  800034c:	d0f5      	beq.n	800033a <PISH_RCC_Int+0x16>
 	}
 
-	RCC->PLLCFGR.R &= (0x3F); // SET M DIVIDDER
- 800034e:	4b30      	ldr	r3, [pc, #192]	@ (8000410 <PISH_RCC_Int+0xec>)
+	RCC->PLLCFGR.R &= ~(0x3F); // SET M DIVIDDER
+ 800034e:	4b2f      	ldr	r3, [pc, #188]	@ (800040c <PISH_RCC_Int+0xe8>)
  8000350:	685b      	ldr	r3, [r3, #4]
- 8000352:	4a2f      	ldr	r2, [pc, #188]	@ (8000410 <PISH_RCC_Int+0xec>)
- 8000354:	f003 033f 	and.w	r3, r3, #63	@ 0x3f
+ 8000352:	4a2e      	ldr	r2, [pc, #184]	@ (800040c <PISH_RCC_Int+0xe8>)
+ 8000354:	f023 033f 	bic.w	r3, r3, #63	@ 0x3f
  8000358:	6053      	str	r3, [r2, #4]
 	RCC->PLLCFGR.R |= (4<<0); // SET M DIVIDDER
- 800035a:	4b2d      	ldr	r3, [pc, #180]	@ (8000410 <PISH_RCC_Int+0xec>)
+ 800035a:	4b2c      	ldr	r3, [pc, #176]	@ (800040c <PISH_RCC_Int+0xe8>)
  800035c:	685b      	ldr	r3, [r3, #4]
- 800035e:	4a2c      	ldr	r2, [pc, #176]	@ (8000410 <PISH_RCC_Int+0xec>)
+ 800035e:	4a2b      	ldr	r2, [pc, #172]	@ (800040c <PISH_RCC_Int+0xe8>)
  8000360:	f043 0304 	orr.w	r3, r3, #4
  8000364:	6053      	str	r3, [r2, #4]
-	RCC->PLLCFGR.R &= (0x1FF<<OFF_SET); // SET N MULTIOPLAY
- 8000366:	4b2a      	ldr	r3, [pc, #168]	@ (8000410 <PISH_RCC_Int+0xec>)
- 8000368:	685a      	ldr	r2, [r3, #4]
- 800036a:	4929      	ldr	r1, [pc, #164]	@ (8000410 <PISH_RCC_Int+0xec>)
- 800036c:	f647 73c0 	movw	r3, #32704	@ 0x7fc0
- 8000370:	4013      	ands	r3, r2
- 8000372:	604b      	str	r3, [r1, #4]
+	RCC->PLLCFGR.R &= ~(0x1FF<<OFF_SET); // SET N MULTIOPLAY
+ 8000366:	4b29      	ldr	r3, [pc, #164]	@ (800040c <PISH_RCC_Int+0xe8>)
+ 8000368:	685b      	ldr	r3, [r3, #4]
+ 800036a:	4a28      	ldr	r2, [pc, #160]	@ (800040c <PISH_RCC_Int+0xe8>)
+ 800036c:	f423 43ff 	bic.w	r3, r3, #32640	@ 0x7f80
+ 8000370:	f023 0340 	bic.w	r3, r3, #64	@ 0x40
+ 8000374:	6053      	str	r3, [r2, #4]
 	RCC->PLLCFGR.R |= (100<<OFF_SET); // SET N MULTIOPLAY
- 8000374:	4b26      	ldr	r3, [pc, #152]	@ (8000410 <PISH_RCC_Int+0xec>)
- 8000376:	685b      	ldr	r3, [r3, #4]
- 8000378:	4a25      	ldr	r2, [pc, #148]	@ (8000410 <PISH_RCC_Int+0xec>)
- 800037a:	f443 53c8 	orr.w	r3, r3, #6400	@ 0x1900
- 800037e:	6053      	str	r3, [r2, #4]
+ 8000376:	4b25      	ldr	r3, [pc, #148]	@ (800040c <PISH_RCC_Int+0xe8>)
+ 8000378:	685b      	ldr	r3, [r3, #4]
+ 800037a:	4a24      	ldr	r2, [pc, #144]	@ (800040c <PISH_RCC_Int+0xe8>)
+ 800037c:	f443 53c8 	orr.w	r3, r3, #6400	@ 0x1900
+ 8000380:	6053      	str	r3, [r2, #4]
 	RCC->PLLCFGR.R &= ~(3<<16); // SET P DRIVER
- 8000380:	4b23      	ldr	r3, [pc, #140]	@ (8000410 <PISH_RCC_Int+0xec>)
- 8000382:	685b      	ldr	r3, [r3, #4]
- 8000384:	4a22      	ldr	r2, [pc, #136]	@ (8000410 <PISH_RCC_Int+0xec>)
- 8000386:	f423 3340 	bic.w	r3, r3, #196608	@ 0x30000
- 800038a:	6053      	str	r3, [r2, #4]
+ 8000382:	4b22      	ldr	r3, [pc, #136]	@ (800040c <PISH_RCC_Int+0xe8>)
+ 8000384:	685b      	ldr	r3, [r3, #4]
+ 8000386:	4a21      	ldr	r2, [pc, #132]	@ (800040c <PISH_RCC_Int+0xe8>)
+ 8000388:	f423 3340 	bic.w	r3, r3, #196608	@ 0x30000
+ 800038c:	6053      	str	r3, [r2, #4]
 	RCC->PLLCFGR.B.PLLSRC = PPL_SRC_HSE; // SET hse
- 800038c:	4a20      	ldr	r2, [pc, #128]	@ (8000410 <PISH_RCC_Int+0xec>)
- 800038e:	6853      	ldr	r3, [r2, #4]
- 8000390:	f443 0380 	orr.w	r3, r3, #4194304	@ 0x400000
- 8000394:	6053      	str	r3, [r2, #4]
+ 800038e:	4a1f      	ldr	r2, [pc, #124]	@ (800040c <PISH_RCC_Int+0xe8>)
+ 8000390:	6853      	ldr	r3, [r2, #4]
+ 8000392:	f443 0380 	orr.w	r3, r3, #4194304	@ 0x400000
+ 8000396:	6053      	str	r3, [r2, #4]
 
 	RCC->CR.B.PLLON = ON;
- 8000396:	4a1e      	ldr	r2, [pc, #120]	@ (8000410 <PISH_RCC_Int+0xec>)
- 8000398:	6813      	ldr	r3, [r2, #0]
- 800039a:	f043 7380 	orr.w	r3, r3, #16777216	@ 0x1000000
- 800039e:	6013      	str	r3, [r2, #0]
+ 8000398:	4a1c      	ldr	r2, [pc, #112]	@ (800040c <PISH_RCC_Int+0xe8>)
+ 800039a:	6813      	ldr	r3, [r2, #0]
+ 800039c:	f043 7380 	orr.w	r3, r3, #16777216	@ 0x1000000
+ 80003a0:	6013      	str	r3, [r2, #0]
 	counter = 0;
- 80003a0:	2300      	movs	r3, #0
- 80003a2:	607b      	str	r3, [r7, #4]
+ 80003a2:	2300      	movs	r3, #0
+ 80003a4:	607b      	str	r3, [r7, #4]
 	while(RCC->CR.B.PLLON == OFF){
- 80003a4:	e002      	b.n	80003ac <PISH_RCC_Int+0x88>
+ 80003a6:	e002      	b.n	80003ae <PISH_RCC_Int+0x8a>
 		counter++;
- 80003a6:	687b      	ldr	r3, [r7, #4]
- 80003a8:	3301      	adds	r3, #1
- 80003aa:	607b      	str	r3, [r7, #4]
+ 80003a8:	687b      	ldr	r3, [r7, #4]
+ 80003aa:	3301      	adds	r3, #1
+ 80003ac:	607b      	str	r3, [r7, #4]
 	while(RCC->CR.B.PLLON == OFF){
- 80003ac:	4b18      	ldr	r3, [pc, #96]	@ (8000410 <PISH_RCC_Int+0xec>)
- 80003ae:	681b      	ldr	r3, [r3, #0]
- 80003b0:	f3c3 6300 	ubfx	r3, r3, #24, #1
- 80003b4:	b2db      	uxtb	r3, r3
- 80003b6:	2b00      	cmp	r3, #0
- 80003b8:	d0f5      	beq.n	80003a6 <PISH_RCC_Int+0x82>
+ 80003ae:	4b17      	ldr	r3, [pc, #92]	@ (800040c <PISH_RCC_Int+0xe8>)
+ 80003b0:	681b      	ldr	r3, [r3, #0]
+ 80003b2:	f3c3 6300 	ubfx	r3, r3, #24, #1
+ 80003b6:	b2db      	uxtb	r3, r3
+ 80003b8:	2b00      	cmp	r3, #0
+ 80003ba:	d0f5      	beq.n	80003a8 <PISH_RCC_Int+0x84>
 	}
-	RCC->CFGR.B.SW0 = 0;
- 80003ba:	4a15      	ldr	r2, [pc, #84]	@ (8000410 <PISH_RCC_Int+0xec>)
- 80003bc:	6893      	ldr	r3, [r2, #8]
- 80003be:	f36f 0300 	bfc	r3, #0, #1
- 80003c2:	6093      	str	r3, [r2, #8]
-	RCC->CFGR.B.SW1 = 1;
- 80003c4:	4a12      	ldr	r2, [pc, #72]	@ (8000410 <PISH_RCC_Int+0xec>)
- 80003c6:	6893      	ldr	r3, [r2, #8]
- 80003c8:	f043 0302 	orr.w	r3, r3, #2
- 80003cc:	6093      	str	r3, [r2, #8]
+
+	FLASH->ACR.B.LATENCY = 3;
+ 80003bc:	4a14      	ldr	r2, [pc, #80]	@ (8000410 <PISH_RCC_Int+0xec>)
+ 80003be:	6813      	ldr	r3, [r2, #0]
+ 80003c0:	2103      	movs	r1, #3
+ 80003c2:	f361 0302 	bfi	r3, r1, #0, #3
+ 80003c6:	6013      	str	r3, [r2, #0]
+
 
 	RCC->CFGR.R |= 2;
- 80003ce:	4b10      	ldr	r3, [pc, #64]	@ (8000410 <PISH_RCC_Int+0xec>)
- 80003d0:	689b      	ldr	r3, [r3, #8]
- 80003d2:	4a0f      	ldr	r2, [pc, #60]	@ (8000410 <PISH_RCC_Int+0xec>)
- 80003d4:	f043 0302 	orr.w	r3, r3, #2
- 80003d8:	6093      	str	r3, [r2, #8]
+ 80003c8:	4b10      	ldr	r3, [pc, #64]	@ (800040c <PISH_RCC_Int+0xe8>)
+ 80003ca:	689b      	ldr	r3, [r3, #8]
+ 80003cc:	4a0f      	ldr	r2, [pc, #60]	@ (800040c <PISH_RCC_Int+0xe8>)
+ 80003ce:	f043 0302 	orr.w	r3, r3, #2
+ 80003d2:	6093      	str	r3, [r2, #8]
 
 
 	SysTick->LOAD.B.RELOAD = 100000 - 1;
- 80003da:	4a0e      	ldr	r2, [pc, #56]	@ (8000414 <PISH_RCC_Int+0xf0>)
- 80003dc:	6853      	ldr	r3, [r2, #4]
- 80003de:	490e      	ldr	r1, [pc, #56]	@ (8000418 <PISH_RCC_Int+0xf4>)
- 80003e0:	f361 0317 	bfi	r3, r1, #0, #24
- 80003e4:	6053      	str	r3, [r2, #4]
+ 80003d4:	4a0f      	ldr	r2, [pc, #60]	@ (8000414 <PISH_RCC_Int+0xf0>)
+ 80003d6:	6853      	ldr	r3, [r2, #4]
+ 80003d8:	490f      	ldr	r1, [pc, #60]	@ (8000418 <PISH_RCC_Int+0xf4>)
+ 80003da:	f361 0317 	bfi	r3, r1, #0, #24
+ 80003de:	6053      	str	r3, [r2, #4]
 	SysTick->CTRL.B.CLKSOURCE = ON;
- 80003e6:	4a0b      	ldr	r2, [pc, #44]	@ (8000414 <PISH_RCC_Int+0xf0>)
- 80003e8:	6813      	ldr	r3, [r2, #0]
- 80003ea:	f043 0304 	orr.w	r3, r3, #4
- 80003ee:	6013      	str	r3, [r2, #0]
+ 80003e0:	4a0c      	ldr	r2, [pc, #48]	@ (8000414 <PISH_RCC_Int+0xf0>)
+ 80003e2:	6813      	ldr	r3, [r2, #0]
+ 80003e4:	f043 0304 	orr.w	r3, r3, #4
+ 80003e8:	6013      	str	r3, [r2, #0]
 	SysTick->CTRL.B.TICKINT = ON;
- 80003f0:	4a08      	ldr	r2, [pc, #32]	@ (8000414 <PISH_RCC_Int+0xf0>)
- 80003f2:	6813      	ldr	r3, [r2, #0]
- 80003f4:	f043 0302 	orr.w	r3, r3, #2
- 80003f8:	6013      	str	r3, [r2, #0]
+ 80003ea:	4a0a      	ldr	r2, [pc, #40]	@ (8000414 <PISH_RCC_Int+0xf0>)
+ 80003ec:	6813      	ldr	r3, [r2, #0]
+ 80003ee:	f043 0302 	orr.w	r3, r3, #2
+ 80003f2:	6013      	str	r3, [r2, #0]
 	SysTick->CTRL.B.ENABLE = ON;
- 80003fa:	4a06      	ldr	r2, [pc, #24]	@ (8000414 <PISH_RCC_Int+0xf0>)
- 80003fc:	6813      	ldr	r3, [r2, #0]
- 80003fe:	f043 0301 	orr.w	r3, r3, #1
- 8000402:	6013      	str	r3, [r2, #0]
+ 80003f4:	4a07      	ldr	r2, [pc, #28]	@ (8000414 <PISH_RCC_Int+0xf0>)
+ 80003f6:	6813      	ldr	r3, [r2, #0]
+ 80003f8:	f043 0301 	orr.w	r3, r3, #1
+ 80003fc:	6013      	str	r3, [r2, #0]
 
 
 }
- 8000404:	bf00      	nop
- 8000406:	370c      	adds	r7, #12
- 8000408:	46bd      	mov	sp, r7
- 800040a:	f85d 7b04 	ldr.w	r7, [sp], #4
- 800040e:	4770      	bx	lr
- 8000410:	40023800 	.word	0x40023800
+ 80003fe:	bf00      	nop
+ 8000400:	370c      	adds	r7, #12
+ 8000402:	46bd      	mov	sp, r7
+ 8000404:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8000408:	4770      	bx	lr
+ 800040a:	bf00      	nop
+ 800040c:	40023800 	.word	0x40023800
+ 8000410:	40023c00 	.word	0x40023c00
  8000414:	e000e010 	.word	0xe000e010
  8000418:	0001869f 	.word	0x0001869f
 
