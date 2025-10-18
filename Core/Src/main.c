@@ -20,6 +20,10 @@
 #include "pish_f411_sfr.h"
 #include "pish_gpio_dr.h"
 #include "pish_rcc_drv.h"
+#include "stm32f4xx_it.h"
+
+
+void delay(uint32_t ms);
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
