@@ -189,6 +189,10 @@ uint32_t get_Ticks(){
 	return ticks;
 }
 
+void clearTicks(){
+	ticks = 0;
+}
+
 /******************************************************************************/
 /* STM32F4xx Peripheral Interrupt Handlers                                    */
 /* Add here the Interrupt Handlers for the used peripherals.                  */

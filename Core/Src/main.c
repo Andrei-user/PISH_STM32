@@ -64,6 +64,10 @@ void delay(uint32_t ms);
   * @brief  The application entry point.
   * @retval int
   */
+void EXTI15_10_IRQHandler(){
+	clearTicks();
+}
+
 int main(void)
 {
 
@@ -75,11 +79,8 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 	while (1)
 	{
-		if (PISH_GPIO_Read(GPIOC, 13))
-		{
-			PISH_GPIO_Toggle(GPIOA, 5);
-			delay(500);
-		}
+		PISH_GPIO_Toggle(GPIOA, 5);
+		delay(500);
 
     /* USER CODE END WHILE */
 

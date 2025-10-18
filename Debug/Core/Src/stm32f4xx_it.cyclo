@@ -8,3 +8,4 @@
 ../Core/Src/stm32f4xx_it.c:170:6:PendSV_Handler	1
 ../Core/Src/stm32f4xx_it.c:183:6:SysTick_Handler	1
 ../Core/Src/stm32f4xx_it.c:188:10:get_Ticks	1
+../Core/Src/stm32f4xx_it.c:192:6:clearTicks	1

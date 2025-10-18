@@ -6,10 +6,7 @@
  */
 #include "pish_rcc_drv.h"
 #include  "pish_f411_sfr.h"
-#define ON (1U)
-#define OFF (0U)
-#define PPL_SRC_HSE (1U)
-#define OFF_SET (6U)
+
 void PISH_RCC_Int(){
 	RCC->CR.B.HSEON = ON;
 
