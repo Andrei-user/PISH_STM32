@@ -21,9 +21,24 @@
 #include "pish_gpio_dr.h"
 #include "pish_rcc_drv.h"
 #include "stm32f4xx_it.h"
+#include "pish_uart_drv.h"
 
 
 void delay(uint32_t ms);
+void rx_callback(uint8_t data);
+
+void rx_callback(uint8_t data)
+{
+
+	if('1' == data)
+	{
+		PISH_GPIO_Write(GPIOA, 5, 1);
+	}
+	else if ('0' == data)
+	{
+		PISH_GPIO_Write(GPIOA, 5, 0);
+	}
+}
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -74,6 +89,10 @@ void EXTI15_10_IRQHandler(){
 int main(void)
 {
     PISH_RCC_Int();
+
+	PISH_UART_Init(USART2, 0);
+	PISH_UART_SetCallback(rx_callback);
+
 	PISH_GPIO_Init();
 
   /* USER CODE END 2 */
@@ -82,6 +101,8 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 	while (1)
 	{
+		PISH_UART_WriteStr(USART2,(uint8_t*) "Hello World\r\n");
+		delay(500);
 //		PISH_GPIO_Toggle(GPIOA, 5);
 //		delay(500);
 

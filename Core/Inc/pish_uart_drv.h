@@ -25,5 +25,5 @@ void PISH_UART_WriteSync(USARTx_t* uart, uint8_t data);
 
 void PISH_UART_WriteStr(USARTx_t* uart, uint8_t* data);
 
-void PISH_UART_SetCallback(void(*callback)(uint8_t* data));
+void PISH_UART_SetCallback(void(*callback)(uint8_t data));
 #endif /* INC_PISH_UART_DRV_H_ */
