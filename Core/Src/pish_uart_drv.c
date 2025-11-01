@@ -76,6 +76,7 @@ void USART2_IRQHandler()
 
 	uint8_t data = PISH_UART_ReadSync(USART2);
 	rx_callback(data);
+	PISH_UART_WriteSync(USART2, data);
 }
 
 uint8_t PISH_UART_ReadSync(USARTx_t* uart)

@@ -121,8 +121,8 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 	while (1)
 	{
-		//PISH_UART_WriteStr(USART2,(uint8_t*) "Hello World\r\n");
-		//delay(500);
+		PISH_UART_WriteStr(USART2,(uint8_t*) "Hello World\r\n");
+		delay(500);
 //		PISH_GPIO_Toggle(GPIOA, 5);
 //		delay(500);
 
