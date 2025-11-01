@@ -40,6 +40,8 @@ void PISH_RCC_Int(){
 	SysTick->CTRL.B.ENABLE = ON;
 
 
+	RCC->APB2ENR.B.SYSCFGEN = ON;
+
 }
 
 

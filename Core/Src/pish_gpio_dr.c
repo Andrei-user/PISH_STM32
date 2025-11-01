@@ -18,6 +18,8 @@ void PISH_GPIO_Init(){
 
 	SYSCFG->EXTICR4.B.EXTI13 = 2;
 
+	NVIC->ISER1.R |= 1<<(40-32);
+
 }
 
 

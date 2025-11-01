@@ -180,9 +180,15 @@ void PendSV_Handler(void)
 /**
   * @brief This function handles System tick timer.
   */
+
+uint32_t prev_ticks = 0;
 void SysTick_Handler(void)
 {
 	ticks++;
+	if(ticks - prev_ticks > 1000){
+		PISH_GPIO_Toggle(GPIOA, 5);
+		prev_ticks = ticks;
+	}
 }
 
 uint32_t get_Ticks(){

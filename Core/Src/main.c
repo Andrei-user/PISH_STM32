@@ -65,22 +65,25 @@ void delay(uint32_t ms);
   * @retval int
   */
 void EXTI15_10_IRQHandler(){
-	clearTicks();
+	if(EXTI->PR.B.PR13){
+		EXTI->PR.B.PR13 = 1;
+		clearTicks();
+	}
 }
 
 int main(void)
 {
-
+    PISH_RCC_Int();
 	PISH_GPIO_Init();
-	PISH_RCC_Int();
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 	while (1)
 	{
-		PISH_GPIO_Toggle(GPIOA, 5);
-		delay(500);
+//		PISH_GPIO_Toggle(GPIOA, 5);
+//		delay(500);
 
     /* USER CODE END WHILE */
 
