@@ -32,29 +32,30 @@ void delay(uint32_t ms);
 
 void rx_callback(uint8_t data)
 {
-    if (cmd_index < CMD_BUFFER_SIZE - 1)
-    {
-        cmd_buffer[cmd_index++] = data;
-    }
-    if (data == ';')
-    {
-    	char*start = &cmd_buffer[cmd_index - 3];
-    	cmd_buffer[cmd_index] = '\0';
-
-        if ((strcmp(start, "on;") == 0)&&(cmd_index >= 3))
-        {
-            PISH_GPIO_Write(GPIOA, 5, 1);
-        }
-        else if (cmd_index >= 4)
-        {
-        	start = &cmd_buffer[cmd_index - 4];
-        	if (strcmp(start, "off;") == 0){
-        		PISH_GPIO_Write(GPIOA, 5, 0);
-        	}
-        }
-
-        cmd_index = 0; // Сброс индекса для следующей команды
-    }
+	PISH_Timer_SetDuty((data - '0') *10);
+//    if (cmd_index < CMD_BUFFER_SIZE - 1)
+//    {
+//        cmd_buffer[cmd_index++] = data;
+//    }
+//    if (data == ';')
+//    {
+//    	char*start = &cmd_buffer[cmd_index - 3];
+//    	cmd_buffer[cmd_index] = '\0';
+//
+//        if ((strcmp(start, "on;") == 0)&&(cmd_index >= 3))
+//        {
+//            PISH_GPIO_Write(GPIOA, 5, 1);
+//        }
+//        else if (cmd_index >= 4)
+//        {
+//        	start = &cmd_buffer[cmd_index - 4];
+//        	if (strcmp(start, "off;") == 0){
+//        		PISH_GPIO_Write(GPIOA, 5, 0);
+//        	}
+//        }
+//
+//        cmd_index = 0; // Сброс индекса для следующей команды
+//    }
 }
 
 
@@ -110,11 +111,11 @@ int main(void)
 {
     PISH_RCC_Int();
 
-	PISH_UART_Init(USART2, 0);
+	PISH_UART_Init(USART2,0);
 	PISH_UART_SetCallback(rx_callback);
 
 	PISH_GPIO_Init();
-
+	PISH_Timer_Init();
   /* USER CODE END 2 */
 
   /* Infinite loop */

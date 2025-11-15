@@ -1,4 +1,4 @@
-../Core/Src/main.c:33:6:rx_callback	24	static
-../Core/Src/main.c:102:6:EXTI15_10_IRQHandler	8	static
-../Core/Src/main.c:109:5:main	8	static
-../Core/Src/main.c:136:6:delay	24	static
+../Core/Src/main.c:33:6:rx_callback	16	static
+../Core/Src/main.c:103:6:EXTI15_10_IRQHandler	8	static
+../Core/Src/main.c:110:5:main	8	static
+../Core/Src/main.c:137:6:delay	24	static
