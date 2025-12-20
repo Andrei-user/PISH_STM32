@@ -22,6 +22,9 @@
 #include "pish_rcc_drv.h"
 #include "stm32f4xx_it.h"
 #include "pish_uart_drv.h"
+#include "pish_flash_driver.h"
+#include "SSD1306_drv.h"
+//#include "pish_i2c_drv.h"
 
 #define CMD_BUFFER_SIZE 12
 char cmd_buffer[CMD_BUFFER_SIZE];
@@ -109,6 +112,7 @@ void EXTI15_10_IRQHandler(){
 
 int main(void)
 {
+	//SCB->VTOR.R = 0x08004000;
     PISH_RCC_Int();
 
 	PISH_UART_Init(USART2,0);
@@ -116,13 +120,27 @@ int main(void)
 
 	PISH_GPIO_Init();
 	PISH_Timer_Init();
+
+	PISH_I2C_Init();
+	SSD1306_Init();
+	uint32_t orig[20];
+	uint32_t copy[20];
+
+	for (int i = 0; i < 20; i++){
+		orig[i]=i;
+	}
+
+	SSD1306_Picture2();
+	//PISH_FLASH_Write(orig, 20, 0);
+	//PISH_FLASH_Read(copy, 20, 0);
+	//PISH_FLASH_Erase(7);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 	while (1)
 	{
-		PISH_UART_WriteStr(USART2,(uint8_t*) "Hello World\r\n");
+		PISH_UART_WriteStr(USART2,(uint8_t*) "Hello World!!!\r\n");
 		delay(500);
 //		PISH_GPIO_Toggle(GPIOA, 5);
 //		delay(500);
