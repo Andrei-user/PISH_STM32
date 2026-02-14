@@ -117,121 +117,8 @@ void buttonInterrupt()
 }
 
 
-void ProcessStateSlow(event_t event)
-{
-	switch(event){
-		case EVENT_TIMER:
-			printValue(getValue());
-			STIMER_arm(1000);
-			break;
-		case EVENT_BUTTON:
-			STIMER_arm(500);
-			COUNTER_arm(3);
-			state = STATE_MES;
-			break;
-	}
-//	if(get_Ticks() - machineTimer > 1000){
-//		printValue(getValue());
-//		machineTimer = get_Ticks();
-//	}
-//	int button_state = PISH_GPIO_Read(GPIOC, 13);
-//	if (buttonFlag)
-//	{
-//		buttonFlag = 0;
-//		machineTimer = get_Ticks();
-//		state = STATE_MES;
-//	}
-//  int button_state = PISH_GPIO_Read(GPIOC, 13);
-//	if(!button_state){
-//		machineTimer = get_Ticks();
-//		state = STATE_MES;
-//		printValue(getValue());
-//	}
-}
 
-void ProcessStateFast(event_t event)
-{
-	switch(event){
-		case EVENT_TIMER:
-			COUNTER_getValue();
-			printValue(getValue());
-			STIMER_arm(100);
-			break;
-		case EVENT_COUNTER:
-			state = STATE_FINISH;
-			break;
-	}
-//	if (messages < 10){
-//		if (get_Ticks() - machineTimer > 100){
-//			machineTimer = get_Ticks();
-//			printValue(getValue());
-//			messages++;
-//		}
-//	}
-//	else{
-//		state = STATE_SLOW;
-//		messages = 0;
-//		machineTimer = get_Ticks();
-//	}
-}
 
-void ProcessStateMes(event_t event)
-{
-	switch(event){
-		case EVENT_TIMER:
-			message(COUNTER_getValue());
-			STIMER_arm(500);
-			break;
-		case EVENT_COUNTER:
-			STIMER_arm(100);
-			COUNTER_arm(10);
-			state = STATE_FAST;
-			break;
-	}
-//	if (messages < 3){
-//		if (get_Ticks()- machineTimer > 500){
-//			message(messages);
-//			messages++;
-//			machineTimer = get_Ticks();
-//		}
-//	}
-//	else{
-//		state = STATE_FAST;
-//		messages = 0;
-//		machineTimer = get_Ticks();
-//	}
-}
-
-void ProcessStateFinish(event_t event){
-	PISH_UART_WriteStr (USART2, "Finish/r/n");
-	state = STATE_SLOW;
-}
-
-void (*procecssState[TOTAL_STATES])(event_t event) =
-{
-		ProcessStateSlow,
-		ProcessStateFast,
-		ProcessStateMes,
-		ProcessStateFinish
-
-};
-
-event_t getEvent()
-{
-	if(buttonFlag)
-	{
-		buttonFlag = 0;
-		return EVENT_BUTTON;
-	}
-	if(EVENT_NOTHING != STIMER_getEvent()){
-		return EVENT_TIMER;
-	}
-	if(EVENT_NOTHING != COUNTER_getEvent()){
-		return EVENT_COUNTER;
-	}
-	return EVENT_NOTHING;
-
-}
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -261,7 +148,7 @@ int main(void)
 	PISH_UART_SetCallback(rx_callback);
 
 	PISH_GPIO_Init();
-	PISH_Timer_Init();
+	//PISH_Timer_Init();
 
 	PISH_I2C_Init();
 //	SSD1306_Init();
@@ -282,10 +169,12 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 	machineTimer = get_Ticks();
+	STIMER_arm(1000);
 	while (1)
 	{
-		event_t event = getEvent();
-		procecssState[state](event);
+		PISH_GPIO_Toggle(GPIOA, 5);
+		PISH_GPIO_Toggle(GPIOA, 6);
+		delay(1000);
 
 //		switch(state){
 //			case STATE_SLOW:
