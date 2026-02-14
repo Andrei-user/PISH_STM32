@@ -24,6 +24,9 @@
 #include "pish_uart_drv.h"
 #include "pish_flash_driver.h"
 #include "SSD1306_drv.h"
+#include <stdio.h>
+#include "pish_types.h"
+#include "sowt_timer.h"
 //#include "pish_i2c_drv.h"
 
 #define CMD_BUFFER_SIZE 12
@@ -32,6 +35,9 @@ uint8_t cmd_index = 0;
 
 
 void delay(uint32_t ms);
+
+uint8_t buttonFlag = 0;
+
 
 void rx_callback(uint8_t data)
 {
@@ -63,6 +69,18 @@ void rx_callback(uint8_t data)
 
 
 
+typedef enum
+{
+	STATE_SLOW,
+	STATE_FAST,
+	STATE_MES,
+	STATE_FINISH,
+	//
+	TOTAL_STATES
+} states;
+
+
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -86,10 +104,134 @@ void rx_callback(uint8_t data)
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+int messages = 0;
+states state = STATE_SLOW;
+uint32_t machineTimer = 0;
 
 /* USER CODE END PV */
+void buttonInterrupt()
+{
+	if(STATE_SLOW == state){
+		buttonFlag = 1;
+	}
+}
 
 
+void ProcessStateSlow(event_t event)
+{
+	switch(event){
+		case EVENT_TIMER:
+			printValue(getValue());
+			STIMER_arm(1000);
+			break;
+		case EVENT_BUTTON:
+			STIMER_arm(500);
+			COUNTER_arm(3);
+			state = STATE_MES;
+			break;
+	}
+//	if(get_Ticks() - machineTimer > 1000){
+//		printValue(getValue());
+//		machineTimer = get_Ticks();
+//	}
+//	int button_state = PISH_GPIO_Read(GPIOC, 13);
+//	if (buttonFlag)
+//	{
+//		buttonFlag = 0;
+//		machineTimer = get_Ticks();
+//		state = STATE_MES;
+//	}
+//  int button_state = PISH_GPIO_Read(GPIOC, 13);
+//	if(!button_state){
+//		machineTimer = get_Ticks();
+//		state = STATE_MES;
+//		printValue(getValue());
+//	}
+}
+
+void ProcessStateFast(event_t event)
+{
+	switch(event){
+		case EVENT_TIMER:
+			COUNTER_getValue();
+			printValue(getValue());
+			STIMER_arm(100);
+			break;
+		case EVENT_COUNTER:
+			state = STATE_FINISH;
+			break;
+	}
+//	if (messages < 10){
+//		if (get_Ticks() - machineTimer > 100){
+//			machineTimer = get_Ticks();
+//			printValue(getValue());
+//			messages++;
+//		}
+//	}
+//	else{
+//		state = STATE_SLOW;
+//		messages = 0;
+//		machineTimer = get_Ticks();
+//	}
+}
+
+void ProcessStateMes(event_t event)
+{
+	switch(event){
+		case EVENT_TIMER:
+			message(COUNTER_getValue());
+			STIMER_arm(500);
+			break;
+		case EVENT_COUNTER:
+			STIMER_arm(100);
+			COUNTER_arm(10);
+			state = STATE_FAST;
+			break;
+	}
+//	if (messages < 3){
+//		if (get_Ticks()- machineTimer > 500){
+//			message(messages);
+//			messages++;
+//			machineTimer = get_Ticks();
+//		}
+//	}
+//	else{
+//		state = STATE_FAST;
+//		messages = 0;
+//		machineTimer = get_Ticks();
+//	}
+}
+
+void ProcessStateFinish(event_t event){
+	PISH_UART_WriteStr (USART2, "Finish/r/n");
+	state = STATE_SLOW;
+}
+
+void (*procecssState[TOTAL_STATES])(event_t event) =
+{
+		ProcessStateSlow,
+		ProcessStateFast,
+		ProcessStateMes,
+		ProcessStateFinish
+
+};
+
+event_t getEvent()
+{
+	if(buttonFlag)
+	{
+		buttonFlag = 0;
+		return EVENT_BUTTON;
+	}
+	if(EVENT_NOTHING != STIMER_getEvent()){
+		return EVENT_TIMER;
+	}
+	if(EVENT_NOTHING != COUNTER_getEvent()){
+		return EVENT_COUNTER;
+	}
+	return EVENT_NOTHING;
+
+}
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -106,7 +248,7 @@ void rx_callback(uint8_t data)
 void EXTI15_10_IRQHandler(){
 	if(EXTI->PR.B.PR13){
 		EXTI->PR.B.PR13 = 1;
-		clearTicks();
+		buttonInterrupt();
 	}
 }
 
@@ -122,15 +264,16 @@ int main(void)
 	PISH_Timer_Init();
 
 	PISH_I2C_Init();
-	SSD1306_Init();
-	uint32_t orig[20];
-	uint32_t copy[20];
+//	SSD1306_Init();
+//	uint32_t orig[20];
+//	uint32_t copy[20];
+//
+//	for (int i = 0; i < 20; i++){
+//		orig[i]=i;
+//	}
+//
+//	SSD1306_Picture2();
 
-	for (int i = 0; i < 20; i++){
-		orig[i]=i;
-	}
-
-	SSD1306_Picture2();
 	//PISH_FLASH_Write(orig, 20, 0);
 	//PISH_FLASH_Read(copy, 20, 0);
 	//PISH_FLASH_Erase(7);
@@ -138,10 +281,47 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+	machineTimer = get_Ticks();
 	while (1)
 	{
-		PISH_UART_WriteStr(USART2,(uint8_t*) "Hello World!!!\r\n");
-		delay(500);
+		event_t event = getEvent();
+		procecssState[state](event);
+
+//		switch(state){
+//			case STATE_SLOW:
+//				ProcessStateSlow();
+//			break;
+//
+//
+//			case STATE_FAST:
+//				ProcessStateFast();
+//			break;
+//
+//
+//			case STATE_MES:
+//				ProcessStateMes();
+//			default:
+//				break;
+//		}
+//		int button_state = PISH_GPIO_Read(GPIOC, 13);
+//		if(button_state){
+//			printValue(getValue());
+//			delay(1000);
+//		}
+//		else{
+//			message(1);
+//			delay(500);
+//			message(2);
+//			delay(500);
+//			message(3);
+//			delay(500);
+//			for (int i =0; i < 10; i++){
+//				printValue(getValue());
+//				delay(100);
+//			}
+//		}
+//		printValue(getValue());
+//		delay(1000);
 //		PISH_GPIO_Toggle(GPIOA, 5);
 //		delay(500);
 
@@ -152,6 +332,30 @@ int main(void)
 
   /* USER CODE END 3 */
 }
+
+int getValue(){
+	return 123;
+}
+
+void message (int val){
+	char buff[30];
+	int len = sprintf(buff, "Button_presed: %d\n\r", val);
+
+	PISH_UART_WriteStr(USART2, buff);
+
+}
+
+void printValue(int val){
+	char buff[30];
+	int len = sprintf(buff, "Value: %d\n\r", val);
+
+	//sprintf(&buff[len], "Done\n\r", val);
+
+	PISH_UART_WriteStr(USART2, buff);
+
+}
+
+
 void delay(uint32_t ms){
 	uint32_t currTicks = get_Ticks();
 	while (get_Ticks() - currTicks < ms);
