@@ -1,7 +1,5 @@
 "./Core/Src/SSD1306_drv.o"
-"./Core/Src/joystick_drv.o"
 "./Core/Src/main.o"
-"./Core/Src/pish_adc_drv.o"
 "./Core/Src/pish_counter.o"
 "./Core/Src/pish_flash_drv.o"
 "./Core/Src/pish_gpio_dr.o"

@@ -27,9 +27,6 @@
 #include <stdio.h>
 #include "pish_types.h"
 #include "sowt_timer.h"
-#include "joystick_drv.h"
-#include "pish_uart_drv.h"
-
 //#include "pish_i2c_drv.h"
 
 #define CMD_BUFFER_SIZE 12
@@ -144,18 +141,32 @@ void EXTI15_10_IRQHandler(){
 uint32_t stack_blink1[40];
 uint32_t *sp_blink1 = &stack_blink1[40];
 
+void blink_1(){
+	while (1)
+	{
+		PISH_GPIO_Toggle(GPIOA, 6);
+		delay(1000);
+	}
+}
+
+uint32_t stack_blink2[40];
+uint32_t *sp_blink2 = &stack_blink2[40];
+void blink_2(){
+	while (1)
+	{
+		PISH_GPIO_Toggle(GPIOA, 5);
+		delay(1000);
+	}
+}
 int main(void)
 {
 	//SCB->VTOR.R = 0x08004000;
-    PISH_ADC_Init();
     PISH_RCC_Int();
 
 	PISH_UART_Init(USART2,0);
 	PISH_UART_SetCallback(rx_callback);
 
 	PISH_GPIO_Init();
-    Joystick_Init();
-
 	//PISH_Timer_Init();
 
 	PISH_I2C_Init();
@@ -179,18 +190,22 @@ int main(void)
 	machineTimer = get_Ticks();
 	STIMER_arm(1000);
 
+	*(--sp_blink1) = 0x81000000;
+	*(--sp_blink1) = (uint32_t)&blink1;
+	*(--sp_blink1) = 0x0
+	*(--sp_blink1) = 0x00000000;
+	*(--sp_blink1) = (uint32_t)&blink1;
+	*(--sp_blink1) = (uint32_t)&blink1;
+	*(--sp_blink1) = (uint32_t)&blink1;
+	*(--sp_blink1) = (uint32_t)&blink1;
+
+
+	blink_1();
+	blink_2();
 
 	while (1)
 	{
-        uint16_t x = PISH_ADC_ReadX();
-        uint16_t y = PISH_ADC_ReadY();
-        uint8_t btn = GPIOC->IDR.B.IDR13;
 
-        char buff[80];
-        sprintf(buff, "X:%4u | Y:%4u | BTN:%u\r\n", x, y, btn);
-        PISH_UART_WriteStr(USART2, buff);
-
-        delay(200);
 	}
 
   /* USER CODE END 3 */
