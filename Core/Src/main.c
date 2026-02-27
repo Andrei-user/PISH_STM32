@@ -138,7 +138,26 @@ void EXTI15_10_IRQHandler(){
 		buttonInterrupt();
 	}
 }
+uint32_t stack_blink1[40];
+uint32_t *sp_blink1 = &stack_blink1[40];
 
+void blink_1(){
+	while (1)
+	{
+		PISH_GPIO_Toggle(GPIOA, 6);
+		delay(1000);
+	}
+}
+
+uint32_t stack_blink2[40];
+uint32_t *sp_blink2 = &stack_blink2[40];
+void blink_2(){
+	while (1)
+	{
+		PISH_GPIO_Toggle(GPIOA, 5);
+		delay(1000);
+	}
+}
 int main(void)
 {
 	//SCB->VTOR.R = 0x08004000;
@@ -170,53 +189,23 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 	machineTimer = get_Ticks();
 	STIMER_arm(1000);
+
+	*(--sp_blink1) = 0x81000000;
+	*(--sp_blink1) = (uint32_t)&blink1;
+	*(--sp_blink1) = 0x0
+	*(--sp_blink1) = 0x00000000;
+	*(--sp_blink1) = (uint32_t)&blink1;
+	*(--sp_blink1) = (uint32_t)&blink1;
+	*(--sp_blink1) = (uint32_t)&blink1;
+	*(--sp_blink1) = (uint32_t)&blink1;
+
+
+	blink_1();
+	blink_2();
+
 	while (1)
 	{
-		PISH_GPIO_Toggle(GPIOA, 5);
-		PISH_GPIO_Toggle(GPIOA, 6);
-		delay(1000);
 
-//		switch(state){
-//			case STATE_SLOW:
-//				ProcessStateSlow();
-//			break;
-//
-//
-//			case STATE_FAST:
-//				ProcessStateFast();
-//			break;
-//
-//
-//			case STATE_MES:
-//				ProcessStateMes();
-//			default:
-//				break;
-//		}
-//		int button_state = PISH_GPIO_Read(GPIOC, 13);
-//		if(button_state){
-//			printValue(getValue());
-//			delay(1000);
-//		}
-//		else{
-//			message(1);
-//			delay(500);
-//			message(2);
-//			delay(500);
-//			message(3);
-//			delay(500);
-//			for (int i =0; i < 10; i++){
-//				printValue(getValue());
-//				delay(100);
-//			}
-//		}
-//		printValue(getValue());
-//		delay(1000);
-//		PISH_GPIO_Toggle(GPIOA, 5);
-//		delay(500);
-
-    /* USER CODE END WHILE */
-
-    /* USER CODE BEGIN 3 */
 	}
 
   /* USER CODE END 3 */
