@@ -6,5 +6,5 @@
 ../Core/Src/stm32f4xx_it.c:144:6:SVC_Handler	1
 ../Core/Src/stm32f4xx_it.c:157:6:DebugMon_Handler	1
 ../Core/Src/stm32f4xx_it.c:185:6:SysTick_Handler	1
-../Core/Src/stm32f4xx_it.c:194:10:get_Ticks	1
-../Core/Src/stm32f4xx_it.c:198:6:clearTicks	1
+../Core/Src/stm32f4xx_it.c:195:10:get_Ticks	1
+../Core/Src/stm32f4xx_it.c:199:6:clearTicks	1

@@ -4,7 +4,7 @@
 ../Core/Src/main.c:145:6:blink_1	8	static
 ../Core/Src/main.c:155:6:blink_2	8	static
 ../Core/Src/main.c:162:5:main	8	static
-../Core/Src/main.c:223:5:getValue	4	static
-../Core/Src/main.c:227:6:message	56	static
-../Core/Src/main.c:235:6:printValue	56	static
-../Core/Src/main.c:246:6:delay	24	static
+../Core/Src/main.c:226:5:getValue	4	static
+../Core/Src/main.c:230:6:message	56	static
+../Core/Src/main.c:238:6:printValue	56	static
+../Core/Src/main.c:249:6:delay	24	static

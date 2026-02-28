@@ -185,6 +185,7 @@ void DebugMon_Handler(void)
 void SysTick_Handler(void)
 {
 	ticks++;
+	OS_Shed();
 //	if(ticks - prev_ticks > 1000){
 //		PISH_GPIO_Toggle(GPIOA, 5);
 //		prev_ticks = ticks;

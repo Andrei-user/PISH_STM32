@@ -161,6 +161,27 @@ void blink_2(){
 }
 int main(void)
 {
+	*(--sp_blink1) = 0x81000000;
+	*(--sp_blink1) = (uint32_t)&blink_1;
+	*(--sp_blink1) = 0x0;
+	*(--sp_blink1) = 0x00000000;
+	*(--sp_blink1) = 1;
+	*(--sp_blink1) = 2;
+	*(--sp_blink1) = 3;
+	*(--sp_blink1) = 4;
+
+	*(--sp_blink2) = 0x81000000;
+	*(--sp_blink2) = (uint32_t)&blink_2;
+	*(--sp_blink2) = 0x0;
+	*(--sp_blink2) = 0x00000000;
+	*(--sp_blink2) = 1;
+	*(--sp_blink2) = 2;
+	*(--sp_blink2) = 3;
+	*(--sp_blink2) = 4;
+
+	OS_Init();
+	OS_AddThread(sp_blink1);
+	OS_AddThread(sp_blink2);
 	//SCB->VTOR.R = 0x08004000;
     PISH_RCC_Int();
 
@@ -190,24 +211,6 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 	machineTimer = get_Ticks();
 	STIMER_arm(1000);
-
-	*(--sp_blink1) = 0x81000000;
-	*(--sp_blink1) = (uint32_t)&blink_1;
-	*(--sp_blink1) = 0x0;
-	*(--sp_blink1) = 0x00000000;
-	*(--sp_blink1) = 1;
-	*(--sp_blink1) = 2;
-	*(--sp_blink1) = 3;
-	*(--sp_blink1) = 4;
-
-	*(--sp_blink2) = 0x81000000;
-	*(--sp_blink2) = (uint32_t)&blink_2;
-	*(--sp_blink2) = 0x0;
-	*(--sp_blink2) = 0x00000000;
-	*(--sp_blink2) = 1;
-	*(--sp_blink2) = 2;
-	*(--sp_blink2) = 3;
-	*(--sp_blink2) = 4;
 
 	blink_2();
 	blink_1();
