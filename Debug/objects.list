@@ -4,6 +4,7 @@
 "./Core/Src/pish_flash_drv.o"
 "./Core/Src/pish_gpio_dr.o"
 "./Core/Src/pish_i2c_drv.o"
+"./Core/Src/pish_os.o"
 "./Core/Src/pish_rcc_drv.o"
 "./Core/Src/pish_timer_drv.o"
 "./Core/Src/pish_uart_drv.o"

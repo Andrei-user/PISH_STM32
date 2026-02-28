@@ -27,6 +27,7 @@
 #include <stdio.h>
 #include "pish_types.h"
 #include "sowt_timer.h"
+#include "pish_os.h"
 //#include "pish_i2c_drv.h"
 
 #define CMD_BUFFER_SIZE 12
