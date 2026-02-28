@@ -8,7 +8,7 @@
 
 void OS_Init()
 {
-
+	SCB->SHPR3.B.PRI_14 = 0xFF;
 }
 
 void OS_AddThread(void *sp);
