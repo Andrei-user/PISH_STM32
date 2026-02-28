@@ -139,8 +139,8 @@ void EXTI15_10_IRQHandler(){
 		buttonInterrupt();
 	}
 }
-uint32_t stack_blink1[40];
-uint32_t *sp_blink1 = &stack_blink1[40];
+uint32_t stack_blink1[200];
+uint32_t *sp_blink1 = &stack_blink1[200];
 
 void blink_1(){
 	while (1)
@@ -150,8 +150,8 @@ void blink_1(){
 	}
 }
 
-uint32_t stack_blink2[40];
-uint32_t *sp_blink2 = &stack_blink2[40];
+uint32_t stack_blink2[200];
+uint32_t *sp_blink2 = &stack_blink2[200];
 void blink_2(){
 	while (1)
 	{
@@ -170,10 +170,28 @@ int main(void)
 	*(--sp_blink1) = 3;
 	*(--sp_blink1) = 4;
 
+	*(--sp_blink1) = 1;
+	*(--sp_blink1) = 2;
+	*(--sp_blink1) = 3;
+	*(--sp_blink1) = 4;
+	*(--sp_blink1) = 1;
+	*(--sp_blink1) = 2;
+	*(--sp_blink1) = 3;
+	*(--sp_blink1) = 4;
+
 	*(--sp_blink2) = 0x81000000;
 	*(--sp_blink2) = (uint32_t)&blink_2;
 	*(--sp_blink2) = 0x0;
 	*(--sp_blink2) = 0x00000000;
+	*(--sp_blink2) = 1;
+	*(--sp_blink2) = 2;
+	*(--sp_blink2) = 3;
+	*(--sp_blink2) = 4;
+
+	*(--sp_blink2) = 1;
+	*(--sp_blink2) = 2;
+	*(--sp_blink2) = 3;
+	*(--sp_blink2) = 4;
 	*(--sp_blink2) = 1;
 	*(--sp_blink2) = 2;
 	*(--sp_blink2) = 3;
