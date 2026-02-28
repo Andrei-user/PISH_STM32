@@ -156,7 +156,7 @@ void blink_2(){
 	while (1)
 	{
 		PISH_GPIO_Toggle(GPIOA, 5);
-		delay(1000);
+		delay(100);
 	}
 }
 

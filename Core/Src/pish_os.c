@@ -29,7 +29,7 @@ void OS_AddThread(OSThread* thread,
 	uint32_t *sp = (uint32_t*)((((uint32_t)stk + stk_size)/8)*8);
 
 	*(--sp) = 0x61000000;
-	*(--sp) = (uint32_t)&handler;
+	*(--sp) = (uint32_t)handler;
 	*(--sp) = 0x0;
 	*(--sp) = 13;
 	*(--sp) = 12;
@@ -48,9 +48,9 @@ void OS_AddThread(OSThread* thread,
 
 	thread->sp =sp;
 	OS_thread[OS_threadsNum] = thread;
-	if(OS_threadsNum == 0){
-		OS_curr = OS_thread[0];
-	}
+//	if(OS_threadsNum == 0){
+//		OS_curr = OS_thread[0];
+//	}
 	OS_threadsNum++;
 }
 
