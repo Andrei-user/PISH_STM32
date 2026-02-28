@@ -191,17 +191,25 @@ int main(void)
 	STIMER_arm(1000);
 
 	*(--sp_blink1) = 0x81000000;
-	*(--sp_blink1) = (uint32_t)&blink1;
-	*(--sp_blink1) = 0x0
+	*(--sp_blink1) = (uint32_t)&blink_1;
+	*(--sp_blink1) = 0x0;
 	*(--sp_blink1) = 0x00000000;
-	*(--sp_blink1) = (uint32_t)&blink1;
-	*(--sp_blink1) = (uint32_t)&blink1;
-	*(--sp_blink1) = (uint32_t)&blink1;
-	*(--sp_blink1) = (uint32_t)&blink1;
+	*(--sp_blink1) = 1;
+	*(--sp_blink1) = 2;
+	*(--sp_blink1) = 3;
+	*(--sp_blink1) = 4;
 
+	*(--sp_blink2) = 0x81000000;
+	*(--sp_blink2) = (uint32_t)&blink_2;
+	*(--sp_blink2) = 0x0;
+	*(--sp_blink2) = 0x00000000;
+	*(--sp_blink2) = 1;
+	*(--sp_blink2) = 2;
+	*(--sp_blink2) = 3;
+	*(--sp_blink2) = 4;
 
-	blink_1();
 	blink_2();
+	blink_1();
 
 	while (1)
 	{
