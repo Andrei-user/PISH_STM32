@@ -549,11 +549,89 @@ Discarded input sections
  .debug_macro   0x00000000      0x1df ./Core/Src/pish_i2c_drv.o
  .debug_macro   0x00000000       0x22 ./Core/Src/pish_i2c_drv.o
  .group         0x00000000        0xc ./Core/Src/pish_os.o
+ .group         0x00000000        0xc ./Core/Src/pish_os.o
+ .group         0x00000000        0xc ./Core/Src/pish_os.o
+ .group         0x00000000        0xc ./Core/Src/pish_os.o
+ .group         0x00000000        0xc ./Core/Src/pish_os.o
+ .group         0x00000000        0xc ./Core/Src/pish_os.o
+ .group         0x00000000        0xc ./Core/Src/pish_os.o
+ .group         0x00000000        0xc ./Core/Src/pish_os.o
  .text          0x00000000        0x0 ./Core/Src/pish_os.o
  .data          0x00000000        0x0 ./Core/Src/pish_os.o
  .bss           0x00000000        0x0 ./Core/Src/pish_os.o
- .text.OS_Init  0x00000000        0xe ./Core/Src/pish_os.o
+ .rodata.ADC1   0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.ADC_Common
+                0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.CRC    0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.DBG    0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.DMA1   0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.DMA2   0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.EXTI   0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.FLASH  0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.FPU    0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.FPU_CPACR
+                0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.GPIOA  0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.GPIOB  0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.GPIOC  0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.GPIOD  0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.GPIOE  0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.GPIOH  0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.I2C1   0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.I2C2   0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.I2C3   0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.I2S2ext
+                0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.I2S3ext
+                0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.IWDG   0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.MPU    0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.NVIC   0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.NVIC_STIR
+                0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.OTG_FS_PWRCLK
+                0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.PWR    0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.RCC    0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.RTC    0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.SCB    0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.SCB_ACTRL
+                0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.SDIO   0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.SPI1   0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.SPI2   0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.SPI3   0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.SPI4   0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.SPI5   0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.SysTick
+                0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.SYSCFG
+                0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.TIM1   0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.TIM10  0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.TIM11  0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.TIM2   0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.TIM3   0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.TIM4   0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.TIM5   0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.TIM8   0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.TIM9   0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.USART1
+                0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.USART2
+                0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.USART6
+                0x00000000        0x4 ./Core/Src/pish_os.o
+ .rodata.WWDG   0x00000000        0x4 ./Core/Src/pish_os.o
+ .text.OS_Init  0x00000000       0x1c ./Core/Src/pish_os.o
  .debug_macro   0x00000000      0xab4 ./Core/Src/pish_os.o
+ .debug_macro   0x00000000       0x22 ./Core/Src/pish_os.o
+ .debug_macro   0x00000000       0x8e ./Core/Src/pish_os.o
+ .debug_macro   0x00000000       0x51 ./Core/Src/pish_os.o
+ .debug_macro   0x00000000      0x103 ./Core/Src/pish_os.o
+ .debug_macro   0x00000000       0x6a ./Core/Src/pish_os.o
+ .debug_macro   0x00000000      0x1df ./Core/Src/pish_os.o
+ .debug_macro   0x00000000       0x1c ./Core/Src/pish_os.o
  .group         0x00000000        0xc ./Core/Src/pish_rcc_drv.o
  .group         0x00000000        0xc ./Core/Src/pish_rcc_drv.o
  .group         0x00000000        0xc ./Core/Src/pish_rcc_drv.o
@@ -1673,29 +1751,29 @@ LOAD C:/ST/STM32CubeIDE_1.16.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
 LOAD C:/ST/STM32CubeIDE_1.16.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.0.200.202406191623/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libm.a
 LOAD C:/ST/STM32CubeIDE_1.16.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.0.200.202406191623/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/thumb/v7e-m+fp/hard\libgcc.a
 
-.debug_info     0x00000000    0x5c6c0
+.debug_info     0x00000000    0x6984c
  .debug_info    0x00000000     0xd56f ./Core/Src/main.o
  .debug_info    0x0000d56f     0xd2a2 ./Core/Src/pish_gpio_dr.o
  .debug_info    0x0001a811     0xd25a ./Core/Src/pish_i2c_drv.o
- .debug_info    0x00027a6b       0x68 ./Core/Src/pish_os.o
- .debug_info    0x00027ad3     0xd1e0 ./Core/Src/pish_rcc_drv.o
- .debug_info    0x00034cb3     0xd20e ./Core/Src/pish_timer_drv.o
- .debug_info    0x00041ec1     0xd3e9 ./Core/Src/pish_uart_drv.o
- .debug_info    0x0004f2aa      0x169 ./Core/Src/sowt_timer.o
- .debug_info    0x0004f413     0xd27d ./Core/Src/stm32f4xx_it.o
- .debug_info    0x0005c690       0x30 ./Core/Startup/startup_stm32f411retx.o
+ .debug_info    0x00027a6b     0xd1f4 ./Core/Src/pish_os.o
+ .debug_info    0x00034c5f     0xd1e0 ./Core/Src/pish_rcc_drv.o
+ .debug_info    0x00041e3f     0xd20e ./Core/Src/pish_timer_drv.o
+ .debug_info    0x0004f04d     0xd3e9 ./Core/Src/pish_uart_drv.o
+ .debug_info    0x0005c436      0x169 ./Core/Src/sowt_timer.o
+ .debug_info    0x0005c59f     0xd27d ./Core/Src/stm32f4xx_it.o
+ .debug_info    0x0006981c       0x30 ./Core/Startup/startup_stm32f411retx.o
 
-.debug_abbrev   0x00000000     0x12c4
+.debug_abbrev   0x00000000     0x148f
  .debug_abbrev  0x00000000      0x380 ./Core/Src/main.o
  .debug_abbrev  0x00000380      0x28b ./Core/Src/pish_gpio_dr.o
  .debug_abbrev  0x0000060b      0x234 ./Core/Src/pish_i2c_drv.o
- .debug_abbrev  0x0000083f       0x64 ./Core/Src/pish_os.o
- .debug_abbrev  0x000008a3      0x214 ./Core/Src/pish_rcc_drv.o
- .debug_abbrev  0x00000ab7      0x22f ./Core/Src/pish_timer_drv.o
- .debug_abbrev  0x00000ce6      0x2aa ./Core/Src/pish_uart_drv.o
- .debug_abbrev  0x00000f90       0xc6 ./Core/Src/sowt_timer.o
- .debug_abbrev  0x00001056      0x24a ./Core/Src/stm32f4xx_it.o
- .debug_abbrev  0x000012a0       0x24 ./Core/Startup/startup_stm32f411retx.o
+ .debug_abbrev  0x0000083f      0x22f ./Core/Src/pish_os.o
+ .debug_abbrev  0x00000a6e      0x214 ./Core/Src/pish_rcc_drv.o
+ .debug_abbrev  0x00000c82      0x22f ./Core/Src/pish_timer_drv.o
+ .debug_abbrev  0x00000eb1      0x2aa ./Core/Src/pish_uart_drv.o
+ .debug_abbrev  0x0000115b       0xc6 ./Core/Src/sowt_timer.o
+ .debug_abbrev  0x00001221      0x24a ./Core/Src/stm32f4xx_it.o
+ .debug_abbrev  0x0000146b       0x24 ./Core/Startup/startup_stm32f411retx.o
 
 .debug_aranges  0x00000000      0x250
  .debug_aranges
@@ -1742,7 +1820,7 @@ LOAD C:/ST/STM32CubeIDE_1.16.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
  .debug_rnglists
                 0x00000176       0x19 ./Core/Startup/startup_stm32f411retx.o
 
-.debug_macro    0x00000000     0x1016
+.debug_macro    0x00000000     0x1077
  .debug_macro   0x00000000      0x1b6 ./Core/Src/main.o
  .debug_macro   0x000001b6       0x1c ./Core/Src/main.o
  .debug_macro   0x000001d2       0x16 ./Core/Src/main.o
@@ -1768,24 +1846,24 @@ LOAD C:/ST/STM32CubeIDE_1.16.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
  .debug_macro   0x00000b64      0x146 ./Core/Src/main.o
  .debug_macro   0x00000caa       0x76 ./Core/Src/pish_gpio_dr.o
  .debug_macro   0x00000d20       0x76 ./Core/Src/pish_i2c_drv.o
- .debug_macro   0x00000d96       0x11 ./Core/Src/pish_os.o
- .debug_macro   0x00000da7       0x7c ./Core/Src/pish_rcc_drv.o
- .debug_macro   0x00000e23       0x72 ./Core/Src/pish_timer_drv.o
- .debug_macro   0x00000e95       0x8a ./Core/Src/pish_uart_drv.o
- .debug_macro   0x00000f1f       0x81 ./Core/Src/sowt_timer.o
- .debug_macro   0x00000fa0       0x76 ./Core/Src/stm32f4xx_it.o
+ .debug_macro   0x00000d96       0x72 ./Core/Src/pish_os.o
+ .debug_macro   0x00000e08       0x7c ./Core/Src/pish_rcc_drv.o
+ .debug_macro   0x00000e84       0x72 ./Core/Src/pish_timer_drv.o
+ .debug_macro   0x00000ef6       0x8a ./Core/Src/pish_uart_drv.o
+ .debug_macro   0x00000f80       0x81 ./Core/Src/sowt_timer.o
+ .debug_macro   0x00001001       0x76 ./Core/Src/stm32f4xx_it.o
 
-.debug_line     0x00000000     0x2c15
+.debug_line     0x00000000     0x3003
  .debug_line    0x00000000      0x831 ./Core/Src/main.o
  .debug_line    0x00000831      0x4e1 ./Core/Src/pish_gpio_dr.o
  .debug_line    0x00000d12      0x575 ./Core/Src/pish_i2c_drv.o
- .debug_line    0x00001287       0x5f ./Core/Src/pish_os.o
- .debug_line    0x000012e6      0x4e9 ./Core/Src/pish_rcc_drv.o
- .debug_line    0x000017cf      0x4a9 ./Core/Src/pish_timer_drv.o
- .debug_line    0x00001c78      0x576 ./Core/Src/pish_uart_drv.o
- .debug_line    0x000021ee      0x490 ./Core/Src/sowt_timer.o
- .debug_line    0x0000267e      0x51e ./Core/Src/stm32f4xx_it.o
- .debug_line    0x00002b9c       0x79 ./Core/Startup/startup_stm32f411retx.o
+ .debug_line    0x00001287      0x44d ./Core/Src/pish_os.o
+ .debug_line    0x000016d4      0x4e9 ./Core/Src/pish_rcc_drv.o
+ .debug_line    0x00001bbd      0x4a9 ./Core/Src/pish_timer_drv.o
+ .debug_line    0x00002066      0x576 ./Core/Src/pish_uart_drv.o
+ .debug_line    0x000025dc      0x490 ./Core/Src/sowt_timer.o
+ .debug_line    0x00002a6c      0x51e ./Core/Src/stm32f4xx_it.o
+ .debug_line    0x00002f8a       0x79 ./Core/Startup/startup_stm32f411retx.o
 
 .debug_str      0x00000000     0xdd3d
  .debug_str     0x00000000     0xda0c ./Core/Src/main.o
@@ -1795,7 +1873,7 @@ LOAD C:/ST/STM32CubeIDE_1.16.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
  .debug_str     0x0000da4b       0x63 ./Core/Src/pish_i2c_drv.o
                                0xa186 (size before relaxing)
  .debug_str     0x0000daae       0x2d ./Core/Src/pish_os.o
-                               0x2e10 (size before relaxing)
+                               0xa12b (size before relaxing)
  .debug_str     0x0000dadb       0x23 ./Core/Src/pish_rcc_drv.o
                                0xa143 (size before relaxing)
  .debug_str     0x0000dafe       0x32 ./Core/Src/pish_timer_drv.o
