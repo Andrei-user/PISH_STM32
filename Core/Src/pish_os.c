@@ -5,25 +5,52 @@
  *      Author: andre
  */
 #include "pish_f411_sfr.h"
+#include "pish_os.h"
 
-void *stasks[2];
+OSThread* OS_thread[2];
+
+OSThread* volatile OS_curr =0;
+OSThread* volatile OS_next =0;
+
 uint8_t OS_threadsNum = 0;
 uint8_t index = 0;
-void *currTread;
-void *nextTread;
+
 
 void OS_Init()
 {
 	SCB->SHPR3.B.PRI_14 = 0xFF;
 }
 
-void OS_AddThread(void *sp)
+void OS_AddThread(OSThread* thread,
+				  OSThreadHandler handler,
+				  void *stk,
+				  uint32_t stk_size)
 {
-	stasks[OS_threadsNum] = sp;
-	if(OS_threadsNum == 0){
-		currTread = stasks[0];
-	}
+	uint32_t *sp = (uint32_t*)((((uint32_t)stk + stk_size)/8)*8);
 
+	*(--sp) = 0x61000000;
+	*(--sp) = (uint32_t)&handler;
+	*(--sp) = 0x0;
+	*(--sp) = 13;
+	*(--sp) = 12;
+	*(--sp) = 11;
+	*(--sp) = 10;
+	*(--sp) = 9;
+
+	*(--sp) = 8;
+	*(--sp) = 7;
+	*(--sp) = 6;
+	*(--sp) = 5;
+	*(--sp) = 4;
+	*(--sp) = 3;
+	*(--sp) = 2;
+	*(--sp) = 1;
+
+	thread->sp =sp;
+	OS_thread[OS_threadsNum] = thread;
+	if(OS_threadsNum == 0){
+		OS_curr = OS_thread[0];
+	}
 	OS_threadsNum++;
 }
 
@@ -34,8 +61,10 @@ void OS_Shed()
 	{
 		index = 0;
 	}
-	nextTread = stasks[index];
-	SCB->ICSR.B.PENDSVSET = 1;
+	OS_next = OS_thread[index];
+	if (OS_next != OS_curr){
+		SCB->ICSR.B.PENDSVSET = 1;
+	}
 }
 
 /* inline assembly syntax for Compiler 6 (ARMCLANG) */
@@ -58,7 +87,7 @@ __asm volatile (
     "  CPSID         I                 \n"
 
     /* if (OS_curr != (OSThread *)0) { */
-    "  LDR           r1,=currTread       \n"
+    "  LDR           r1,=OS_curr       \n"
     "  LDR           r1,[r1,#0x00]     \n"
     "  CMP           r1,#0             \n"
     "  BEQ           PendSV_restore    \n"
@@ -78,7 +107,7 @@ __asm volatile (
 #endif                              // ARMv7-M or higher
 
     /*     OS_curr->sp = sp; */
-    "  LDR           r1,=currTread       \n"
+    "  LDR           r1,=OS_curr       \n"
     "  LDR           r1,[r1,#0x00]     \n"
     "  MOV           r0,sp             \n"
     "  STR           r0,[r1,#0x00]     \n"
@@ -86,15 +115,15 @@ __asm volatile (
 
     "PendSV_restore:                   \n"
     /* sp = OS_next->sp; */
-    "  LDR           r1,=nextTread       \n"
+    "  LDR           r1,=OS_next       \n"
     "  LDR           r1,[r1,#0x00]     \n"
     "  LDR           r0,[r1,#0x00]     \n"
     "  MOV           sp,r0             \n"
 
     /* OS_curr = OS_next; */
-    "  LDR           r1,=nextTread       \n"
+    "  LDR           r1,=OS_next       \n"
     "  LDR           r1,[r1,#0x00]     \n"
-    "  LDR           r2,=currTread       \n"
+    "  LDR           r2,=OS_curr       \n"
     "  STR           r1,[r2,#0x00]     \n"
 
     /* pop registers r4-r11 */
