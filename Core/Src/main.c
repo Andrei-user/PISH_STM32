@@ -140,7 +140,7 @@ void EXTI15_10_IRQHandler(){
 	}
 }
 uint32_t stack_blink1[200];
-uint32_t *sp_blink1 = &stack_blink1[200];
+//uint32_t *sp_blink1 = &stack_blink1[200];
 
 void blink_1(){
 	while (1)
@@ -151,7 +151,7 @@ void blink_1(){
 }
 
 uint32_t stack_blink2[200];
-uint32_t *sp_blink2 = &stack_blink2[200];
+//uint32_t *sp_blink2 = &stack_blink2[200];
 void blink_2(){
 	while (1)
 	{
@@ -164,11 +164,11 @@ OSThread blink1_th;
 OSThread blink2_th;
 
 uint32_t stack_idle[200];
-uint32_t *sp_idle = &stack_idle[200];
+//uint32_t *sp_idle = &stack_idle[200];
 int main(void)
 {
 
-	OS_Init(sp_idle, 200);
+	OS_Init(stack_idle, 200);
 	OS_AddThread(&blink1_th,
 				 blink_1,
 				 stack_blink1,

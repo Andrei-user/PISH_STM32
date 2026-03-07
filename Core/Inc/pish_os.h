@@ -26,4 +26,6 @@ void OS_Shed();
 
 void OS_delay(uint32_t ticks);
 
+void OS_Tick();
+
 #endif /* INC_PISH_OS_H_ */

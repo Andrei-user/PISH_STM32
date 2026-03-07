@@ -88,12 +88,26 @@ void OS_Shed()
 	}
 }
 
+void OS_Tick(){
+	for (uint8_t i = 1U; i<OS_threadsNum; i++)
+	{
+		if(OS_thread[i]->timeout != 0U)
+		{
+			OS_thread[i]->timeout--;
+			if(OS_thread[i]->timeout == 0U)
+			{
+				OS_readySet |= (1U << (i - 1U));
+			}
+		}
+	}
+}
+
 void OS_delay(uint32_t ticks){
 	__asm volatile ("cpsid i");
 	OS_curr->timeout = ticks;
 	OS_readySet &= ~(1U << (index - 1));
 	OS_Shed();
-	__asm volatile ("cpsid i");
+	__asm volatile ("cpsie i");
 }
 
 
