@@ -91,24 +91,24 @@ void OS_Shed()
 }
 
 void OS_Tick(){
-	for (uint8_t i = 1U; i<OS_threadsNum; i++)
-	{
-		if(OS_thread[i]->timeout != 0U)
-		{
-			OS_thread[i]->timeout--;
-			if(OS_thread[i]->timeout == 0U)
-			{
-				OS_readySet |= (1U << (i - 1U));
-			}
+	uint32_t working = OS_delayedSet;
+	while(working != 0){
+		OSThread* t = OS_thread[LOG2(working)];
+		uint32_t bit  = (1U << (t->prio - 1U));
+		t->timeout--;
+		if (t->timeout == 0){
+			OS_readySet |= bit;
+			OS_delayedSet &= ~bit;
 		}
+		working &= ~bit;
 	}
 }
 
 void OS_delay(uint32_t ticks){
 	__asm volatile ("cpsid i");
 	OS_curr->timeout = ticks;
-	OS_readySet &= ~(1U << (index - 1));
-	OS_delayedSet |= (1U << (index - 1));
+	OS_readySet &= ~(1U << (OS_curr->prio - 1U));
+	OS_delayedSet |= (1U << (OS_curr->prio -1U));
 
 	OS_Shed();
 	__asm volatile ("cpsie i");
