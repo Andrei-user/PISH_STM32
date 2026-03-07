@@ -11,10 +11,11 @@
 typedef struct
 {
 	void *sp;
+	uint32_t timeout;
 }OSThread;
 
 typedef  void(*OSThreadHandler)();
-void OS_Init();
+void OS_Init(void* stkPtr, uint32_t stkSize);
 
 void OS_AddThread(OSThread* thread,
 				  OSThreadHandler handler,
@@ -23,5 +24,6 @@ void OS_AddThread(OSThread* thread,
 
 void OS_Shed();
 
+void OS_delay(uint32_t ticks);
 
 #endif /* INC_PISH_OS_H_ */

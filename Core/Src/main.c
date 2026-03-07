@@ -146,7 +146,7 @@ void blink_1(){
 	while (1)
 	{
 		PISH_GPIO_Toggle(GPIOA, 6);
-		delay(1000);
+		OS_delay(20);
 	}
 }
 
@@ -156,15 +156,19 @@ void blink_2(){
 	while (1)
 	{
 		PISH_GPIO_Toggle(GPIOA, 5);
-		delay(100);
+		OS_delay(100);
 	}
 }
 
 OSThread blink1_th;
 OSThread blink2_th;
+
+uint32_t stack_idle[200];
+uint32_t *sp_idle = &stack_idle[200];
 int main(void)
 {
-	OS_Init();
+
+	OS_Init(sp_idle, 200);
 	OS_AddThread(&blink1_th,
 				 blink_1,
 				 stack_blink1,
