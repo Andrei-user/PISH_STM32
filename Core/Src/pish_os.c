@@ -6,8 +6,11 @@
  */
 #include "pish_f411_sfr.h"
 #include "pish_os.h"
+#define LOG2(x) (32U - __builtin_clz(x))
+
 
 OSThread* OS_thread[32+1];
+
 
 OSThread* volatile OS_curr =0;
 OSThread* volatile OS_next =0;
@@ -77,13 +80,12 @@ void OS_Shed()
 		next = OS_thread[0];
 	}
 	else{
-		next = OS_thread[];
+		next = OS_thread[LOG2(OS_readySet)];
 	}
 
-	OS_next = OS_thread[index];
 
-
-	if (OS_next != OS_curr){
+	if (next != OS_curr){
+		OS_next = next;
 		SCB->ICSR.B.PENDSVSET = 1;
 	}
 }
