@@ -12,12 +12,14 @@ typedef struct
 {
 	void *sp;
 	uint32_t timeout;
+	uint8_t prio;
 }OSThread;
 
 typedef  void(*OSThreadHandler)();
 void OS_Init(void* stkPtr, uint32_t stkSize);
 
 void OS_AddThread(OSThread* thread,
+				  uint8_t prio,
 				  OSThreadHandler handler,
 				  void *stk,
 				  uint32_t stk_size);

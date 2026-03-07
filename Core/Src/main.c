@@ -146,7 +146,7 @@ void blink_1(){
 	while (1)
 	{
 		PISH_GPIO_Toggle(GPIOA, 6);
-		OS_delay(20);
+		OS_delay(60);
 	}
 }
 
@@ -156,12 +156,18 @@ void blink_2(){
 	while (1)
 	{
 		PISH_GPIO_Toggle(GPIOA, 5);
-		OS_delay(100);
+		OS_delay(70);
 	}
+}
+
+void OS_onIdle(){
+
 }
 
 OSThread blink1_th;
 OSThread blink2_th;
+
+
 
 uint32_t stack_idle[200];
 //uint32_t *sp_idle = &stack_idle[200];
@@ -170,10 +176,12 @@ int main(void)
 
 	OS_Init(stack_idle, 200);
 	OS_AddThread(&blink1_th,
+			     1,
 				 blink_1,
 				 stack_blink1,
 				 200);
 	OS_AddThread(&blink2_th,
+				 2,
 				 blink_2,
 				 stack_blink2,
 				 200);	//SCB->VTOR.R = 0x08004000;

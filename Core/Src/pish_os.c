@@ -13,6 +13,7 @@ OSThread* volatile OS_curr =0;
 OSThread* volatile OS_next =0;
 
 uint32_t OS_readySet = 0;
+uint32_t OS_delayedSet = 0;
 uint8_t OS_threadsNum = 0;
 uint8_t index = 0;
 
@@ -20,17 +21,18 @@ uint8_t index = 0;
 OSThread idleThread;
 void main_idleThread(){
 	while (1){
-
+		OS_onIdle();
 	}
 }
 
 void OS_Init(void* stkPtr, uint32_t stkSize)
 {
 	SCB->SHPR3.B.PRI_14 = 0xFF;
-	OS_AddThread(&idleThread, &main_idleThread, stkPtr, stkSize);
+	OS_AddThread(&idleThread, 0, &main_idleThread, stkPtr, stkSize);
 }
 
 void OS_AddThread(OSThread* thread,
+				  uint8_t prio,
 				  OSThreadHandler handler,
 				  void *stk,
 				  uint32_t stk_size)
@@ -56,11 +58,11 @@ void OS_AddThread(OSThread* thread,
 	*(--sp) = 1;
 
 	thread->sp =sp;
-
-	if(OS_threadsNum > 0){
+	thread->prio = prio;
+	if(prio > 0){
 		OS_readySet |= (1U << (OS_threadsNum - 1U));
 	}
-	OS_thread[OS_threadsNum] = thread;
+	OS_thread[prio] = thread;
 //	if(OS_threadsNum == 0){
 //		OS_curr = OS_thread[0];
 //	}
@@ -69,20 +71,18 @@ void OS_AddThread(OSThread* thread,
 
 void OS_Shed()
 {
+	OSThread * next;
 	if (OS_readySet == 0)
 	{
-		index = 0;
+		next = OS_thread[0];
 	}
 	else{
-		do{
-			index++;
-			if (index == OS_threadsNum){
-				index = 1U;
-			}
-		}while ((OS_readySet & (1U << index - 1U)) == 0);
+		next = OS_thread[];
 	}
 
 	OS_next = OS_thread[index];
+
+
 	if (OS_next != OS_curr){
 		SCB->ICSR.B.PENDSVSET = 1;
 	}
@@ -106,6 +106,8 @@ void OS_delay(uint32_t ticks){
 	__asm volatile ("cpsid i");
 	OS_curr->timeout = ticks;
 	OS_readySet &= ~(1U << (index - 1));
+	OS_delayedSet |= (1U << (index - 1));
+
 	OS_Shed();
 	__asm volatile ("cpsie i");
 }
