@@ -28,6 +28,8 @@
 #include "pish_types.h"
 #include "sowt_timer.h"
 #include "pish_os.h"
+#include "FreeRTOS.h"
+#include "task.h"
 //#include "pish_i2c_drv.h"
 
 #define CMD_BUFFER_SIZE 12
@@ -146,7 +148,7 @@ void blink_1(){
 	while (1)
 	{
 		PISH_GPIO_Toggle(GPIOA, 6);
-		OS_delay(60);
+		vTaskDelay(70);
 	}
 }
 
@@ -156,16 +158,13 @@ void blink_2(){
 	while (1)
 	{
 		PISH_GPIO_Toggle(GPIOA, 5);
-		OS_delay(70);
+		vTaskDelay(200);
 	}
 }
 
-void OS_onIdle(){
 
-}
 
-OSThread blink1_th;
-OSThread blink2_th;
+
 
 
 
@@ -174,17 +173,6 @@ uint32_t stack_idle[200];
 int main(void)
 {
 
-	OS_Init(stack_idle, 200);
-	OS_AddThread(&blink1_th,
-			     1,
-				 blink_1,
-				 stack_blink1,
-				 200);
-	OS_AddThread(&blink2_th,
-				 2,
-				 blink_2,
-				 stack_blink2,
-				 200);	//SCB->VTOR.R = 0x08004000;
     PISH_RCC_Int();
 
 	PISH_UART_Init(USART2,0);
@@ -192,6 +180,9 @@ int main(void)
 
 	PISH_GPIO_Init();
 	//PISH_Timer_Init();
+	xTaskCreate(blink_1, "blink1", 200, NULL, 1, NULL);
+	xTaskCreate(blink_2, "blink2", 200, NULL, 1, NULL);
+	vTaskStartScheduler();
 
 	PISH_I2C_Init();
 //	SSD1306_Init();
@@ -214,8 +205,6 @@ int main(void)
 	machineTimer = get_Ticks();
 	STIMER_arm(1000);
 
-	blink_2();
-	blink_1();
 
 	while (1)
 	{
