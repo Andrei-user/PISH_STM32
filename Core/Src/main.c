@@ -144,6 +144,12 @@ void EXTI15_10_IRQHandler(){
 uint32_t stack_blink1[200];
 //uint32_t *sp_blink1 = &stack_blink1[200];
 
+void vApplicationStackOverflowHook( TaskHandle_t xTask,
+                                        char * pcTaskName ){
+	portDISABLE_INTERRUPTS();
+	while(1);
+}
+
 void blink_1(){
 	while (1)
 	{
